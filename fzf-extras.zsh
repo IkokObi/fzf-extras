@@ -92,6 +92,8 @@ _zz() {
   cd "$dir" || return
 }
 
+alias zz='_zz'
+
 # zd - cd into selected directory with options
 # The super function of _fd, _fda, _fdr, _fst, _cdf, _zz
 zd() {

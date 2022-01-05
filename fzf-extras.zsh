@@ -26,7 +26,7 @@ _fdm() {
   cd "$dir" || return
 }
 
-alias zdm='_fdm'
+alias fd='_fdm'
 
 # _fda - including hidden directories
 _fda() {

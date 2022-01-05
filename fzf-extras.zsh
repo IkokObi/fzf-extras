@@ -16,6 +16,18 @@ _fd() {
   cd "$dir" || return
 }
 
+# _fdm - cd to selected directory (search depth is restricted by maxdepth)
+_fdm() {
+  local dir
+  dir="$(
+    find "${1:-.}" -path '*/\.*' -prune -o -type d -print -maxdepth 3 2> /dev/null \
+      | fzf +m
+  )" || return
+  cd "$dir" || return
+}
+
+alias zdm='_fdm'
+
 # _fda - including hidden directories
 _fda() {
   local dir
@@ -130,7 +142,7 @@ EOF
     _fd "$(realpath "$1")"
   else
     # args is start from '-'
-    while getopts darfszh OPT; do
+    while getopts darfszmh OPT; do
       case "$OPT" in
         d) shift; _fd  "$1";;
         a) shift; _fda "$1";;
@@ -138,6 +150,7 @@ EOF
         s) shift; _fst "$*";;
         f) shift; _cdf "$*";;
         z) shift; _zz  "$*";;
+        m) shift; _fdm  "$1";;
         h) usage; return 0;;
         *) usage; return 1;;
       esac

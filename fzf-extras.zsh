@@ -134,6 +134,7 @@ usage: zd [OPTIONS]
 OPTIONS:
   -d [path]: Directory (default)
   -a [path]: Directory included hidden
+  -m [path]: Directory (limited search depth, currently 3 depth)
   -r [path]: Parent directory
   -s [query]: Directory from stack
   -f [query]: Directory of the selected file
@@ -165,11 +166,11 @@ EOF
       case "$OPT" in
         d) shift; _fd  "$1";;
         a) shift; _fda "$1";;
+        m) shift; _fdm  "$1";;
         r) shift; _fdr "$1";;
         s) shift; _fst "$*";;
         f) shift; _cdf "$*";;
         z) shift; _zz  "$*";;
-        m) shift; _fdm  "$1";;
         h) usage; return 0;;
         *) usage; return 1;;
       esac

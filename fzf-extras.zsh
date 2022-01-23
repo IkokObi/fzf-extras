@@ -151,7 +151,7 @@ EOF
 
   if [[ -z "$1" ]]; then
     # no arg
-    _fd
+    _fdm
   elif [[ "$1" == '..' ]]; then
     # arg is '..'
     shift
@@ -259,8 +259,8 @@ bindkey '\ei' fzf-locate-widget
 fi
 
 
-# _fzz - selectable edit frecency file
-_fzz() {
+# fez - selectable edit frecency file
+fez() {
   local file
 
   file="$(
@@ -634,6 +634,4 @@ ftpane() {
 # -----------------------------------------------------------------------------
 # aliases
 # -----------------------------------------------------------------------------
-alias fd='_fdm'
-alias fr='_fdr'
-alias fz='_fzz'
+alias fd='zd'

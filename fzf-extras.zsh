@@ -45,8 +45,6 @@ _fdm() {
   cd "$dir" || return
 }
 
-alias fd='_fdm'
-
 # _fda - including hidden directories
 _fda() {
   local dir
@@ -123,8 +121,6 @@ _zz() {
   cd "$dir" || return
 }
 
-alias zz='_zz'
-
 # zd - cd into selected directory with options
 # The super function of _fd, _fda, _fdr, _fst, _cdf, _zz
 zd() {
@@ -177,6 +173,7 @@ EOF
     done
   fi
 }
+
 
 # -----------------------------------------------------------------------------
 # file
@@ -254,6 +251,27 @@ bindkey '\ei' fzf-locate-widget
 
 fi
 
+
+# _fzz - selectable edit frecency file
+_fzz() {
+  local file
+
+  file="$(
+    fasd -fl \
+      | fzf \
+          --tac \
+          --reverse \
+          --select-1 \
+          --no-sort \
+          --no-multi \
+          --tiebreak=index \
+          --bind=ctrl-x:toggle-sort \
+          --query "$*" \
+      | grep -o '/.*'
+  )" || return
+
+  "${EDITOR:-vim}" "$file"
+}
 
 
 # -----------------------------------------------------------------------------
@@ -602,3 +620,10 @@ ftpane() {
 
 # vim: set filetype=sh foldmethod=marker foldlevel=0:
 
+
+# -----------------------------------------------------------------------------
+# aliases
+# -----------------------------------------------------------------------------
+alias fd='_fdm'
+alias fr='_fdr'
+alias fz='_fzz'

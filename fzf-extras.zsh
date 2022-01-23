@@ -42,6 +42,10 @@ _fdm() {
     find "${1:-.}" -path '*/\.*' -prune -o -type d -print -maxdepth 3 2> /dev/null \
       | fzf +m
   )" || return
+
+  # Update fasd entries
+  fasd -A "$dir"
+
   cd "$dir" || return
 }
 
@@ -117,6 +121,9 @@ _zz() {
           --query "$*" \
       | grep -o '/.*'
   )" || return
+
+  # Update fasd entries
+  fasd -A "$dir"
 
   cd "$dir" || return
 }
@@ -269,6 +276,9 @@ _fzz() {
           --query "$*" \
       | grep -o '/.*'
   )" || return
+
+  # Update fasd entries
+  fasd -A "$file"
 
   "${EDITOR:-vim}" "$file"
 }
